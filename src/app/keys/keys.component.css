@@ -1,0 +1,9 @@
+:host {
+    display: inline-block;
+}
+
+.keys{
+    position: relative;
+    height: 350px;
+    display: flex;
+}

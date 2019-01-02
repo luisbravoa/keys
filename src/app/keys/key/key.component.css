@@ -1,0 +1,19 @@
+:host {
+}
+
+.key{
+  border: 1px solid black;
+  width: 70px;
+  height: 100%;
+  text-align: center;
+}
+
+.key.black{
+  background-color: black;
+  position: absolute;
+  height: 60%;
+  border: none;
+  width: 50px;
+  margin-left: -25px;
+  color: white;
+}
