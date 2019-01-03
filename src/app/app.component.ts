@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+
+import { NoteService } from "./note.service";
+import { KeysComponent } from './keys/keys.component';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,21 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'keys';
+
+  scales:Array<any>;
+
+  @ViewChild(KeysComponent) keys: KeysComponent;
+
+  constructor(noteService: NoteService) {
+    console.log(this.keys);
+    this.scales = noteService.getScales();
+  }
+
+  play(scale){
+
+  }
+
+  show(scale){
+    this.keys.highlight(scale.notes);
+  }
 }

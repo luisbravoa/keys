@@ -1,0 +1,22 @@
+:host {
+  width: 300px;
+  display: block;
+  padding: 0 25px;
+}
+
+.item-holder{
+    display: flex;
+}
+.item-name{
+    width: calc(100% - 30px);
+}
+
+.item-action {
+    border: none;
+    background-color: transparent;
+}
+
+.item-actions {
+    position: relative;
+    right: -20px;
+}

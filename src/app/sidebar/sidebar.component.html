@@ -1,0 +1,15 @@
+<h3>Scales</h3>
+
+<mat-selection-list>
+  <mat-list-option *ngFor="let item of items" (click)="selected(item)">
+    <div class="item-holder">
+      <div class="item-name">{{item.id}}</div>
+      <div class="item-actions">
+        <a class="item-action" (click)="played(item)">
+          <mat-icon class="icon">play_arrow</mat-icon>
+        </a>
+      </div>
+    </div>
+  </mat-list-option>
+</mat-selection-list>
+

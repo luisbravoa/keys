@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class KeyComponent implements OnInit {
 
   @Input() config: any;
+  @Input() highlight: Boolean;
 
   
   @Output() press: EventEmitter<any> = new EventEmitter();
@@ -18,16 +19,13 @@ export class KeyComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.config);
   }
 
   pressed (){
-    console.log('press');
     this.press.emit();
   }
 
   released (){
-    console.log('release');
     this.release.emit();
   }
 

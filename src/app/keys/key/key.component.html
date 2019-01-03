@@ -1,1 +1,1 @@
-<div class="key" [ngClass]="{'key': true, 'black': config.black}" (mousedown)="pressed()" (mouseup)="released()">{{config.id}}</div>
+<div class="key" [ngClass]="{'key': true, 'black': config.black, highlight: highlight}" (mousedown)="pressed()" (mouseup)="released()">{{config.id}}</div>

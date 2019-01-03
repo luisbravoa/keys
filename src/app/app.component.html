@@ -1,2 +1,22 @@
-<app-keys></app-keys>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Keys</span>
+  </mat-toolbar-row>
+</mat-toolbar>
 
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" position="end" opened="true">
+    <app-sidebar [items]="scales" (select)="show($event)" (play)="play($event)"></app-sidebar>
+    <mat-icon class="icon panel-close" (click)="drawer.toggle()" style="position:absolute; top:15px; right:40px;">close</mat-icon>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+
+    <app-keys #keys></app-keys>
+
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+  </div>
+
+</mat-drawer-container>
