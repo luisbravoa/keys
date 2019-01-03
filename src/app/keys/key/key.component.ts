@@ -11,9 +11,11 @@ export class KeyComponent implements OnInit {
   @Input() highlight: Boolean;
 
   
-  @Output() press: EventEmitter<any> = new EventEmitter();
+  @Output() pressed: EventEmitter<any> = new EventEmitter();
 
-  @Output() release: EventEmitter<any> = new EventEmitter();
+  @Output() released: EventEmitter<any> = new EventEmitter();
+
+  isPressed: boolean;
 
 
   constructor() { }
@@ -21,12 +23,16 @@ export class KeyComponent implements OnInit {
   ngOnInit() {
   }
 
-  pressed (){
-    this.press.emit();
+  press (){
+    this.pressed.emit();
+    this.isPressed = true;
+    setTimeout(()=>{
+      this.isPressed = false;
+    }, 1000);
   }
 
-  released (){
-    this.release.emit();
+  release (){
+    this.released.emit();
   }
 
 }

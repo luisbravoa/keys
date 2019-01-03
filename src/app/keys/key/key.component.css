@@ -19,5 +19,16 @@
 }
 
 .key.highlight{
-  background-color: red;
+  background-color:crimson;
+  box-shadow:inset 0px 0px 35px rgba(0,0,0,.9);
+}
+
+.key.highlight.black{
+  background-color:crimson;
+  box-shadow:inset 0px 0px 35px rgba(255, 255, 255, 0.8);
+}
+
+.key:active, .key.pressed {
+  box-shadow: 0 3px 0 #00823F;
+  top: 1px;
 }

@@ -22,7 +22,7 @@ export class AppComponent {
   }
 
   play(scale){
-
+    this.keys.playSequence(scale.notes);
   }
 
   show(scale){

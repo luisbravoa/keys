@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
 import { AudioService } from './audio.service';
+import { KeyComponent } from './key/key.component';
 
-let constructKey = (note: string, id: string, black = false, alias= undefined)=>{
+let constructKey = (note: string, number: string, black = false, alias= undefined)=>{
   return {
-    id: note + id, 
+    id: note + number, 
+    octave: number,
     note,
     black,
     alias
@@ -13,22 +15,22 @@ let constructKey = (note: string, id: string, black = false, alias= undefined)=>
 
 let constructKeys = (number: any = 3, addEdge = false)=>{
   const keys = [
-    constructKey(`C`, number),
-    constructKey(`C#`, number, true, 'Db'),
-    constructKey(`D`, number),
-    constructKey(`D#`, number, true, 'Eb'),
-    constructKey(`E`, number),
-    constructKey(`F`, number),
-    constructKey(`F#`, number, true, 'Gb'),
-    constructKey(`G`, number),
-    constructKey(`G#`, number, true, 'Ab'),
-    constructKey(`A`, number),
-    constructKey(`A#`, number, true, 'Bb'),
-    constructKey(`B`, number),
+    constructKey(`c`, number),
+    constructKey(`c#`, number, true, 'db'),
+    constructKey(`d`, number),
+    constructKey(`d#`, number, true, 'eb'),
+    constructKey(`e`, number),
+    constructKey(`f`, number),
+    constructKey(`f#`, number, true, 'gb'),
+    constructKey(`g`, number),
+    constructKey(`g#`, number, true, 'ab'),
+    constructKey(`a`, number),
+    constructKey(`a#`, number, true, 'bb'),
+    constructKey(`b`, number),
   ];
 
   if(addEdge){
-    keys.push(constructKey(`C`, number + 1));
+    keys.push(constructKey(`c`, number + 1));
   }
 
   return keys;
@@ -44,14 +46,16 @@ let constructKeys = (number: any = 3, addEdge = false)=>{
 export class KeysComponent implements OnInit {
 
   config: any;
+  lastIndex=0;
 
   highlightedNotes = [];
+
+  @ViewChildren(KeyComponent) keys: QueryList<KeyComponent>;
 
   constructor(private audioService: AudioService) {
     this.config = {
       keys: constructKeys(2).concat(constructKeys(3, true))
     }
-    console.log(this.config);
    }
 
   ngOnInit() {
@@ -67,8 +71,52 @@ export class KeysComponent implements OnInit {
   }
 
   highlight(notes){
-    console.log('HL', notes);
+    // console.log('HL', notes);
     this.highlightedNotes = notes;
+  }
+
+  playSequence(notes){
+    console.log('play', notes);
+    
+    let index = 0;
+    
+    this.lastIndex = 0;
+    const play = ()=>{
+      console.log(index, notes[index])
+      return this.playKey(notes[index])
+      .then(()=>{
+        index++;
+        if(notes[index]){
+          play();
+        }
+      });
+    };
+
+    play();
+  }
+
+  playKey(note) {
+    console.log('play note', note);
+    let keys = this.keys.toArray();
+    const key = keys.find((key, index)=>{
+      const found = index > this.lastIndex && (key.config.note === note || key.config.alias === note);
+
+      if(found){
+        this.lastIndex = index;
+      }
+
+      return found;
+    });
+
+    return new Promise((resolve, reject)=>{
+      if(key){
+        key.press();
+        setTimeout(resolve, 1000);
+      } else {
+        console.error('note not found', note);
+        resolve();
+      }
+    });
   }
 
   shouldHighlight(key){

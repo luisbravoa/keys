@@ -46,6 +46,6 @@ export class NoteService {
   }
 
   getScaleNotes(tonic, scale){
-    return teoria.scale(tonic, scale).simple().map(note=>note.toUpperCase());
+    return teoria.scale(tonic, scale).simple().map(note=>note);
   }
 }
